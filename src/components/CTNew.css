@@ -1,0 +1,18 @@
+.icons{
+    height:20px;
+    width:20px;
+float:right;
+display: flex;
+margin-right: 20px;
+
+  }
+  .container {
+    max-width: 1000px;
+    margin-left: 22%;
+    margin-right: auto;
+    
+    font-family: 'lato', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom right,  rgb(89, 144, 247),rgb(100, 197, 241), rgb(255, 255, 251));
+  }

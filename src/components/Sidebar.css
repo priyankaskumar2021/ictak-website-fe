@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+
+.sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  background-image: linear-gradient(to right, #6dcef5, #edf1aca4);
+  font-size: 0.65em;
+}
+.sidebar h1{
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.4em;
+  color:rgb(100, 9, 122);
+  display: block;
+  transition: all ease-out 300ms;
+  font-size: medium;
+}
+.nav {
+  position: relative;
+  margin: 0 15%;
+  text-align: right;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+}
+
+.nav ul {
+  list-style: none;
+}
+ .nav li {
+    position: relative;
+    margin: 3.2em 0;
+ }
+  .links {
+      
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.4em;
+      color:rgb(100, 9, 122);
+      display: block;
+      transition: all ease-out 300ms;
+    }
+    
+    .links:hover {
+        color: rgba(rgb(252, 162, 214), 0.75);
+    }
+  
+  p {
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 20px;
+  }

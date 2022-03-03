@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+
 import './App.css';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import AddCoursePage from './pages/AddCoursePage';
+import Courses from './pages/Courses';
+import Dashboard from './pages/Dashboard';
+
+import RegistrationPage from './pages/RegistrationPage';
+import UpdateCoursesPage from './pages/UpdateCoursesPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Router>
+      <div className="App">
+      <Routes>
+              <Route path="/" element={<Dashboard />} exact></Route>
+              <Route path="/updatecourse/:id" element={<UpdateCoursesPage />} ></Route>
+              <Route path="/courses" element={<Courses />} ></Route>
+              <Route path="/courses/:id" element={<UpdateCoursesPage />} ></Route>
+              <Route path="/addcourse" element={<AddCoursePage />} ></Route>
+              <Route path="/registration" element={<RegistrationPage />} ></Route>
+            </Routes>
+            </div>
+    </Router>
   );
 }
 
