@@ -1,5 +1,4 @@
 import React from 'react';
-import Register from '../components/Register';
 import RegistrationTable from '../components/RegistrationTable';
 import Sidebar from '../components/Sidebar';
 import "./page.css"
@@ -10,7 +9,7 @@ const RegistrationPage = () => {
                 <Sidebar />
             </div>
             <div className="pagecontent">
-                <Register/>
+                <RegistrationTable/>
             </div>
         </div>
     );

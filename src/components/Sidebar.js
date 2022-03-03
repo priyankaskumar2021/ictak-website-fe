@@ -8,6 +8,7 @@ const Sidebar = () => {
                 <aside className="sidebar">
                     <nav className="nav">
                         <ul>
+                            <img src="admin.png" width={"100px"} height={"100px"}></img>
                            <h1> <li className="active">Admin</li></h1>
                             <li className="links"><Link to="/">Dashboard</Link></li>
                             <li className="links"><Link to="/courses">Courses</Link></li>

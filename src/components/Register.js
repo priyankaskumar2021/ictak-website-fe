@@ -1,40 +1,83 @@
-import React from 'react';
+
 import './register.css';
 import MyForm from './DbForm';
 import axios from 'axios';
+import  React , {useEffect, useState} from 'react';
+import validation from "./validation"
 
 function Register() {
+  //Code to add to db
 
-  var [myvalue, setmyValue] = MyForm({ email: "", course: ""})
-  
+const[formValues,setFormValues]=useState({name:"",email:"",mobileno:"",course:"",amount:""});
+const [isSubmit,setIsSubmit]=useState(false);
+const [formErrorValues, setFormErrorValues] = useState({});
+
+
+const handleSubmit=(event)=>{
+  event.preventDefault();
+  console.log(formValues);
+      setFormErrorValues(validation(formValues));
+      console.log(formErrorValues);
+      setIsSubmit(true);
+}
+
+
+useEffect(()=>{
+  if(Object.keys(formErrorValues).length === 0 && isSubmit)
+  addUsers();
+}, [formErrorValues]);
+
+const addUsers=()=>{
+
+    axios.post("http://localhost:3006/api/addreg",formValues).then(
+      (res)=>{
+        sendBrochure();
+        alert('Registered Successfully!!Check your email for detailed Brochure')
+      
+      });
+    }
+
+
+const handleChange = (event) => {
+
+  const { name, value } = event.target; 
+
+  setFormValues({ ...formValues, [name]: value });
+
+}
+const handleChange1 = () => {
+
+if(formValues.course==='FSD')
+setFormValues({ ...formValues, 'amount': '500' });
+
+else if(formValues.course==='ST')
+setFormValues({ ...formValues, 'amount': '600' });
+
+else if(formValues.course==='CS')
+setFormValues({ ...formValues, 'amount': '700' });
+
+else if(formValues.course==='DSA')
+setFormValues({ ...formValues, 'amount': '800' });
+else if(formValues.course==='RPA')
+setFormValues({ ...formValues, 'amount': '900' });
+else if(formValues.course==='DM')
+setFormValues({ ...formValues, 'amount': '600' });
+}
+
+//Brochure
+ 
   function sendBrochure() {
-    axios.post("http://localhost:3006/sendbrochure",myvalue)
+    console.log("in sent brochure",formValues.email)
+ 
+    axios.post("http://localhost:3006/sendbrochure",formValues)
         .then((response) => {
-          console.log("Data",myvalue)
-          alert
+          console.log("Data",formValues)
+          
         }
         )
 }
 
-var getCourse=()=>{
-  var e = document.getElementById("course");
-var sc = e.selectedIndex;
-let bname="";
-if(sc===1)
-bname="FSD.pdf";
-else if(sc===2)
-bname="DSA.pdf";
-else if(sc===3)
-bname="CSA.pdf"
-else if(sc===4)
-bname="ST.pdf"
-else if(sc===5)
-bname="RPA.pdf"
-else if(sc===6)
-bname="DM.pdf"
-console.log(bname);
-setmyValue(myvalue.course=bname);
-}
+
 
   return (
    
@@ -56,105 +99,50 @@ setmyValue(myvalue.course=bname);
     <p className='coursenames'><b>DIGITAL MARKETING</b></p><br/>
        
       
-    <button type="button" class="coursebtn btn btn-info">Learner's Start Here</button>
+    <button type="button" className="coursebtn btn btn-info">Learner's Start Here</button>
         </div>
               </div>
-              <div class="col-xl-6">
-                <div class="card-body p-md-5 text-black">
-                  <h3 class="mb-5 text-uppercase">Register for Brochure</h3>
-  
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1m" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1m">First name</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example1n">Last name</label>
-                      </div>
-                    </div>
+              <div className="col-xl-6">
+                <div className="card-body p-md-5 text-black">
+                  <h3 className="mb-5 text-uppercase">Register for Brochure</h3>
+
+                  <div className="form-outline mb-4">
+                    <input type="text" id="form3Example8" class="form-control form-control-lg"  name="name" value={formValues.name} onChange={handleChange}/>
+                    <label className="form-label" for="form3Example8">Full Name</label>
                   </div>
+                  <span className='error' style={{color:'red'}}>{formErrorValues.name}</span> <br />
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example97" class="form-control form-control-lg"   name ="email" value={myvalue.email} onChange={setmyValue}/>
+                    <input type="text" id="form3Example97" class="form-control form-control-lg" name ="email" value={formValues.email} onChange={handleChange}/>
                     <label class="form-label" for="form3Example97"  >Email ID</label>
                   </div>
-                  
+                  <span className='error' style={{color:'red'}}>{formErrorValues.email}</span> <br />
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example8" class="form-control form-control-lg" />
-                    <label class="form-label" for="form3Example8">Address</label>
+                    <input type="text" id="form3Example8" class="form-control form-control-lg"  name ="mobileno" value={formValues.mobileno} onChange={handleChange}/>
+                    <label class="form-label" for="form3Example8">Mobile Number</label>
                   </div>
+                  <span className='error' style={{color:'red'}}>{formErrorValues.mobileno}</span> <br />
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example90" class="form-control form-control-lg" />
-                    <label class="form-label" for="form3Example90">Pincode</label>
-                  </div>
-  
-  
-                  <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-  
-                    <h6 class="mb-0 me-4">Gender: </h6>
-  
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="femaleGender"
-                        value="option1"
-                      />
-                      <label class="form-check-label" for="femaleGender">Female</label>
-                    </div>
-  
-                    <div class="form-check form-check-inline mb-0 me-4">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="maleGender"
-                        value="option2"
-                      />
-                      <label class="form-check-label" for="maleGender">Male</label>
-                    </div>
-  
-                    <div class="form-check form-check-inline mb-0">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="otherGender"
-                        value="option3"
-                      />
-                      <label class="form-check-label" for="otherGender">Other</label>
-                    </div>
-  
-                  </div>
-  
-                 
-  
-                  <div class="form-outline mb-4">
-                    <input type="text" id="form3Example9" class="form-control form-control-lg" />
-                    <label class="form-label" for="form3Example9">Mobile</label>
-                  </div>
-  
-                  
-                  <div class="form-outline mb-4">
-                  <select class="select form-control form-control-lg" id="course" onClick={getCourse}>
-                        <option value="1">Select Course</option>
-                        <option value="2">Fullstack Development</option>
-                        <option value="3">Cyber Security</option>
-                        <option value="4">DATA SCIENCE AND ANALYTICS</option>
-                        <option value="5">Software Testing</option>
+                  <select class="select form-control form-control-lg" id="course" value={formValues.course} name="course"  onChange={handleChange} onMouseOut={handleChange1}>
+                        <option defaultValue>Select Course..</option>
+                        <option value="FSD">FULL STACK DEVELOPMENT</option>
+                        <option value="ST">SOFTWARE TESTING</option>
+                        <option value="DSA">DATA SCIENCE AND ANALYTICS</option>
+                        <option value="CS">CYBER SECURITY</option>
+                        <option value="RPA">ROBOTIC PROCESS AUTOMATION</option>
+                        <option value="DM">DIGITAL MARKETING</option>
                       </select>
-                   
+                      <span className='error' style={{color:'red'}}>{formErrorValues.course}</span> <br />
                   </div>
   
+                  <div class="form-outline mb-4">
+                    <input type="text" id="form3Example9"  onChange={handleChange} onMouseOut={handleChange1} class="form-control form-control-lg"   type="number" value={formValues.amount} name='amount' readOnly/>
+                    <label class="form-label" for="form3Example9">Amount</label>
+                  </div>
                   
   
                   <div class="d-flex justify-content-end pt-3">
                     <button type="button" class="btn btn-light btn-lg">Reset all</button>
-                    <button type="button" class="btn btn-warning btn-lg ms-2" onClick={sendBrochure}>Get Brochure</button>
+                    <button type="button" class="btn btn-warning btn-lg ms-2" onClick={handleSubmit}>Register and get Brochure</button>
                   </div>
   
                 </div>

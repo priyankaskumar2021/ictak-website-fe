@@ -4,8 +4,10 @@ import axios from 'axios';
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import "./registrationTable.css";
-// import Registration from "./Registration";
+import { useNavigate } from "react-router-dom";
+
 const RegistrationTable = () => {
+    let navigate = useNavigate();
     let [Data, SetData] = useState([]);
     useEffect(() => {
         registerData();
@@ -20,62 +22,88 @@ const RegistrationTable = () => {
             )
     }
 
+    function updateReg(){
+
+    }
+    function deleteReg(event){
+           var rid = event.target.getAttribute("name");
+            axios.post("http://localhost:3006/api/deletereg", { _id: rid })
+            .then((res) => {
+                alert("Successfully Deleted");
+    
+                navigate("../registration", { replace: true })
+            })
+        }
+    
+
     //save to excel
     const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-  const fileExtension = ".xlsx";
- const fileName="registrationlist"
-  const exportToCSV = (Data, fileName) => {
-    const ws = XLSX.utils.json_to_sheet(Data);
-    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, fileName + fileExtension);
-  };
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const fileName = "registrationlist"
+    const exportToCSV = (Data, fileName) => {
+        const ws = XLSX.utils.json_to_sheet(Data);
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, fileName + fileExtension);
+    };
 
     return (
-        
-            <>
-           <button className='download' onClick={(e) => exportToCSV(Data, fileName)} >Download as excel</button>
-                <div class="container">
-                    <h2>Registration Details</h2>
-                    <ul class="responsive-table">
-                        <li class="table-header">
-                            <div class="col col-1">NAME</div>
-                            <div class="col col-2">EMAIL</div>
-                            <div class="col col-3">MOBILE NO</div>
-                            <div class="col col-4">COURSE</div>
-                            <div class="col col-5">AMOUNT</div>
-                            
-                        </li>
-                        </ul>
+            <div className="container">  
+            <button className='download' onClick={(e) => exportToCSV(Data, fileName)} >Download as excel</button>
+            <h2 className='coursehead'>List of Registered Candidates</h2>
+            <div class="row">
+                <div class="col-lg-11 mx-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-5">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Mobile No</th>
+                                            <th scope="col">Course</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            Data.map((res, key) => (
+                                                
+                                                <tr>
+                                                    
+                                                    <th scope="row">{res.name}</th>
+                                                    <td>{res.email}</td>
+                                                    <td>{res.mobileno}</td>
+                                                    <td>{res.course}</td>
+                                                    <td>{res.amount}</td>
+                                                    <td>
+                                                     
+                                                        <ul className="list-inline m-0">
+                                                           
+                                                            <li className="list-inline-item">
+                                                                <button className="btn btn-success btn-sm rounded-0" name={res._id} onClick={updateReg} type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" name={res._id} onClick={updateReg}></i></button>
+                                                            </li>
+                                                            <li className="list-inline-item">
+                                                                <button className="btn btn-danger btn-sm rounded-0" name={res._id} onClick={deleteReg} type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" name={res._id} onClick={deleteReg}></i></button>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            ))}
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                       {
-                            Data.map((res) => (
-                                <div  class="container">
-                                <ul  class="responsive-table">
-                               <li class="table-row">
-                               
-                                <div class="col col-1" data-label="Name">{res.name}</div>
-                                <div class="col col-2" data-label="Email">{res.email}</div>
-                                <div class="col col-3" data-label="MobileNo">{res.mobileno}</div>
-                                <div class="col col-4" data-label="Course">{res.course}</div>
-                                <div class="col col-5" data-label="Amount">{res.amount}</div>
-                                
-                                        
-                                <div class="col col-4"><button className='view'>View</button></div>
-                            </li>
-                            </ul> 
-                                </div>
-                               
-                            
-                            ))
-                       }
-                    
-               
-                </>
-            
-        
-            )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export default RegistrationTable;

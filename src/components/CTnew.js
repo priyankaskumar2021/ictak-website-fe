@@ -72,7 +72,13 @@ const CTNew = () => {
                                             <th scope="col">Course Title</th>
                                             <th scope="col">Duration</th>
                                             <th scope="col">Fees</th>
-                                            <th scope="col">Last Date</th>
+                                            
+                                            <th scope="col">Commencement</th>
+                                            <th scope="col">Entrance Exam</th>
+                                            <th scope="col">Orientation Date</th>
+                                            <th scope="col">Course Type</th>
+                                            <th scope="col">Course Status</th>
+                                            <th scope="col">Course Categoryt</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -86,6 +92,12 @@ const CTNew = () => {
                                                     <td>{course.duration}</td>
                                                     <td>{course.fees}</td>
                                                     <td>{moment(course.commence).format('DD-MM-YYYY')}</td>
+                                                    
+                                                    <td>{moment(course.entrance).format('DD-MM-YYYY')}</td>
+                                                    <td>{moment(course.orientation).format('DD-MM-YYYY')}</td>
+                                                    <td>{course.type}</td>
+                                                    <td>{course.cstatus}</td>
+                                                    <td>{course.category}</td>
                                                     <td>
                                                      
                                                         <ul className="list-inline m-0">
