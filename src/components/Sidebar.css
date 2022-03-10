@@ -3,10 +3,10 @@
 
 
 .sidebar {
-  position: fixed;
+  position: absolute;
   width: 20%;
-  height: 100vh;
-  background-image: linear-gradient(to right, #6dcef5, #edf1aca4);
+  height: 80vh;
+  background-image: linear-gradient(to right, #6dcef5, #fafaf9a4);
   font-size: 0.65em;
 }
 .sidebar h1{
@@ -47,20 +47,9 @@
     .links:hover {
         color: rgba(rgb(252, 162, 214), 0.75);
     }
-    
-    
-  
-  
 
-
-
-  
  
-  p {
-    text-transform: uppercase;
-    font-size: 1em;
-    letter-spacing: 0.1em;
-    color: #FFF;
-    font-weight: bold;
-    margin-top: 20px;
+  .adminlogo{
+    height: 100px;
+    width:100px;
   }

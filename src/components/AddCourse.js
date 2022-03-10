@@ -7,13 +7,13 @@ const AddCourse = () => {
   let navigate = useNavigate();
   var [myvalue, setmyValue] = MyForm({ title: "", type: "",description:"", cstatus: "",category: "",about: "",entrance: "",commence: "" ,orientation: "",lastdate: "",fees:"",duration:"",objectives:"",image:""})
   const addCourse = () => {
-      console.log(myvalue)
-      axios.post("http://localhost:3006/api/addcourse", myvalue).then(
-          (res) => {
+      console.log(myvalue);
+      
+      axios.post("http://localhost:3006/api/addcourse", myvalue);
               alert("Successfully Added")
-              navigate("../course", { replace: true })
-          }
-      )
+              navigate("../admin/courses", { replace: true })
+          
+      
   }
   
   var loadFile = function (event) {
@@ -38,13 +38,9 @@ setmyValue(myvalue.category=ct);
   return (
 
     <div className="addcourse">
-      <form className="screen" method="post">
+      <form className="screen">
         <div className="screen-header">
-          <div className="screen-header-left">
-            <div className="screen-header-button close"></div>
-            <div className="screen-header-button maximize"></div>
-            <div className="screen-header-button minimize"></div>
-          </div>
+          
           <h1 className='app-title'>ADD NEW COURSE</h1>
           
         </div>

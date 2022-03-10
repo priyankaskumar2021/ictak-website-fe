@@ -3,11 +3,23 @@ import "./AddCourse.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import moment from "moment";
+import Select from 'react-select';
 
 const UpdateCourse = () => {
-  var ec = document.getElementById("category");
-  var es = document.getElementById("cstatus");
+  var [cat, setcat] = useState(null);
+  var [status, setstatus] = useState(null);
+  const options1 = [
+    { value: 'Select', label: 'Select Registration Status..' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Closed', label: 'Closed' },
 
+  ]
+  const options2 = [
+    { value: 'Select', label: 'Select Course category..' },
+    { value: 'Retail', label: 'Retail' },
+    { value: 'Institutional', label: 'Institutional' },
+    { value: 'Corporate', label: 'Corporate' }
+  ]
   
     let navigate = useNavigate();
     const { id } = useParams();
@@ -36,10 +48,13 @@ function contentChange(e) {
 }
 
 function updateCourse() {     
+  setSingleCourse(singleCourse.cstatus=status.value);
+  setSingleCourse(singleCourse.category=cat.value);
+  console.log("in update course",singleCourse)
     axios.post("http://localhost:3006/api/updatecourse", singleCourse )
         .then((res) => {
             alert("Successfully Updated");
-            navigate("../", { replace: true })
+            navigate("../admin/courses", { replace: true })
            
         }
         )
@@ -52,29 +67,14 @@ function updateCourse() {
     console.log(event.target.files[0].name)
    setSingleCourse(singleCourse.image=event.target.files[0].name);
   };
-var getStatus=()=>{
-  
-var st = es.options[es.selectedIndex].text;
-console.log(st);
-setSingleCourse(singleCourse.cstatus=st);
-}
-var getCategory=()=>{
-  
-var ct = ec.options[ec.selectedIndex].text;
-console.log(ct);
-setSingleCourse(singleCourse.category=ct);
-}
+
  
   return (
 
     <div className="addcourse">
       <form className="screen" method="post">
         <div className="screen-header">
-          <div className="screen-header-left">
-            <div className="screen-header-button close"></div>
-            <div className="screen-header-button maximize"></div>
-            <div className="screen-header-button minimize"></div>
-          </div>
+          
           <h1 className='app-title'>UPDATE COURSE</h1>
           
         </div>
@@ -96,18 +96,10 @@ setSingleCourse(singleCourse.category=ct);
               <textarea required name="description"  value={singleCourse.description} onChange={contentChange} ></textarea>
 
               <label className="app-form-group">Registration Status</label>
-              <select name="cstatus" className="app-form-control" id="cstatus" value={singleCourse.cstatus} onClick={getStatus}>
-                <option >select</option>
-                <option  value="open">Open</option>
-                <option value="closed">Closed</option>
-              </select>
+              <Select options={options1} name="cstatus" className="app-form-control"  placeholder={singleCourse.cstatus}   onChange={setstatus} id="cstatus"/>
 
               <label className="app-form-group">Course Category</label>
-              <select name="category" className="app-form-control" id="category"  value={singleCourse.category} onClick={getCategory}>
-                <option>select</option>
-                <option  value="retail">Retail</option>
-                <option  value="institutional">Institutional</option>
-              </select>
+              <Select options={options2} name="category" className="app-form-control"  placeholder={singleCourse.category}   onChange={setcat} id="category"/>
 
               <label className="app-form-group">About Course</label>
               <textarea required name="about"  value={singleCourse.about} onChange={contentChange} ></textarea>

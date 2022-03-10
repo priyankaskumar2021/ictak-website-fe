@@ -22,7 +22,12 @@ const RegistrationTable = () => {
             )
     }
 
-    function updateReg(){
+    function updateReg(event){
+       var rid = event.target.getAttribute("name");
+        console.log("in update", rid)
+        var s = `../admin/updateregistration/${rid}`;
+        console.log(s)
+        navigate(s, { replace: true })
 
     }
     function deleteReg(event){
@@ -31,7 +36,7 @@ const RegistrationTable = () => {
             .then((res) => {
                 alert("Successfully Deleted");
     
-                navigate("../registration", { replace: true })
+                navigate("../admin", { replace: true })
             })
         }
     
@@ -50,7 +55,7 @@ const RegistrationTable = () => {
     };
 
     return (
-            <div className="container">  
+            <div className="RegContainer">  
             <button className='download' onClick={(e) => exportToCSV(Data, fileName)} >Download as excel</button>
             <h2 className='coursehead'>List of Registered Candidates</h2>
             <div class="row">
@@ -84,11 +89,11 @@ const RegistrationTable = () => {
                                                      
                                                         <ul className="list-inline m-0">
                                                            
-                                                            <li className="list-inline-item">
+                                                            <li className="list-inline-item" id="ud">
                                                                 <button className="btn btn-success btn-sm rounded-0" name={res._id} onClick={updateReg} type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" name={res._id} onClick={updateReg}></i></button>
                                                             </li>
-                                                            <li className="list-inline-item">
-                                                                <button className="btn btn-danger btn-sm rounded-0" name={res._id} onClick={deleteReg} type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" name={res._id} onClick={deleteReg}></i></button>
+                                                            <li className="list-inline-item"  id="ud">
+                                                                <button className="btn btn-danger btn-sm rounded-0" name={res._id} onClick={deleteReg} type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" name={res._id}></i></button>
                                                             </li>
                                                         </ul>
                                                     </td>

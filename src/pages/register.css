@@ -1,0 +1,40 @@
+.learnersside{
+    font-family: 'Josefin Sans', sans-serif;
+    margin: .4em;
+    margin-top: 4em;
+    color: rgb(255, 255, 255);
+    text-align: center;
+
+}
+.youcanlearn{
+    font-family: 'Lora', serif;
+    color: rgb(255, 238, 0);
+    margin: 1em 0 0 0 ;
+    text-align: center;
+   
+}
+.coursenames{
+    font-size: large;
+    margin: .5em;
+    color: rgb(53, 27, 168);
+    text-align: center;
+
+}
+.coursename{
+    font-size: large;
+    margin-top: 2em;
+    color: antiquewhite;
+    text-align: center;
+
+}
+.coursebtn{
+    margin-top: 3em;
+    align-items: center;
+}
+
+.full{
+    background-image:url('../assets/images/registerbg.jpg');
+    background-repeat: no-repeat;
+background-size: cover;
+
+}

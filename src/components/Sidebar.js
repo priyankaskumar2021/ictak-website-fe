@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import adminimg from '..//assets/images/admin.png';
 import "./Sidebar.css"
 const Sidebar = () => {
     return (
@@ -8,14 +9,14 @@ const Sidebar = () => {
                 <aside className="sidebar">
                     <nav className="nav">
                         <ul>
-                            <img src="admin.png" width={"100px"} height={"100px"}></img>
+                            <img src={adminimg} className="adminlogo"></img>
                            <h1> <li className="active">Admin</li></h1>
-                            <li className="links"><Link to="/">Dashboard</Link></li>
-                            <li className="links"><Link to="/courses">Courses</Link></li>
-                            <li className="links"><Link to="/registration">Registration</Link></li>
-                            <li className="links"><Link to="/">Membership</Link></li>
-                            <li className="links"><Link to="/">Partnership</Link></li>
-                            <li className="links"><Link to="/">Logout</Link></li>
+                            <li ><Link to="/admin" className="links">Dashboard</Link></li>
+                            <li><Link to="/admin/courses" className="links">Courses</Link></li>
+                            <li><Link to="/admin/registration" className="links">Registration</Link></li>
+                            <li><Link to="/admin" className="links">Membership</Link></li>
+                            <li><Link to="/admin" className="links">Partnership</Link></li>
+                            <li><Link to="/admin" className="links">Logout</Link></li>
                         </ul>
                     </nav>
                 </aside>
